@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Música - El Extraño Mundo de Jack</title>
+</head>
+<style id="estilo-menu-desplegable-inline">
+    #menu_bar.desplegado ul,
+    #menu_bar.responsive ul {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        right: 40px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 210px !important;
+        background-color: #0d0d0d !important;
+        border: 2px solid #800000 !important;
+        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        gap: 14px !important;
+        z-index: 99999 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.92) !important;
+    }
+
+    #menu_bar.desplegado ul li,
+    #menu_bar.responsive ul li {
+        display: block !important;
+    }
+
+    #menu_bar.desplegado ul li a,
+    #menu_bar.responsive ul li a {
+        display: inline-block !important;
+    }
+
+    #menu_bar.desplegado ul li:has(.menu-rojo),
+    #menu_bar.responsive ul li:has(.menu-rojo) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #menu_bar.desplegado ul,
+        #menu_bar.responsive ul {
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+</style>
+<script>
+    (function () {
+        function alternarMenuDesplegable(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var nav = document.getElementById("menu_bar");
+            if (!nav) return;
+            var estaAbierto = nav.classList.contains("desplegado") || nav.classList.contains("responsive");
+            nav.classList.toggle("desplegado", !estaAbierto);
+            nav.classList.toggle("responsive", !estaAbierto);
+        }
+
+        document.addEventListener("click", function (e) {
+            var gatillo = e.target.closest(".menu-rojo, .icon");
+            if (gatillo) {
+                alternarMenuDesplegable(e);
+                return;
+            }
+            var nav = document.getElementById("menu_bar");
+            if (nav && !e.target.closest("#menu_bar")) {
+                nav.classList.remove("desplegado");
+                nav.classList.remove("responsive");
+            }
+        });
+    })();
+</script>
+<body>
+    <header>
+        <div>
+            <img src="imagenes/logo.png" alt="Logo El Extraño Mundo de Jack">
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        <nav id="menu_bar" class="barratop">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="galeria.html">GALERÍA</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="mundos.html">MUNDOS</a></li>
+                <li><a href="musica.html">MÚSICA</a></li>
+                <li><a href="contacto.html">CONTACTO</a></li>
+                <li><a href="#" class="menu-rojo"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenido-musica">
+        <h1 class="titulo-musica">CANCIONES DE LA PELÍCULA</h1>
+        <p class="bajada-musica">Hacé clic en cualquiera de las canciones originales para reproducirla.</p>
+
+        <section class="reproductor-principal">
+            <div class="reproductor-info">
+                <span class="etiqueta-pista">REPRODUCIENDO AHORA</span>
+                <h2 id="titulo-pista-actual">This Is Halloween</h2>
+                <p id="subtitulo-pista-actual">Apertura · Ciudad de Halloween</p>
+            </div>
+
+            <video id="reproductor-musica-video" controls playsinline preload="metadata"></video>
+            <p id="estado-musica" class="estado-audio">Seleccioná una canción de la lista para escucharla.</p>
+        </section>
+
+        <section class="lista-tracks" id="lista-tracks">
+            <article class="track-item activo" data-titulo="This Is Halloween" data-subtitulo="Apertura · Ciudad de Halloween" data-archivo="Download (5).mp4">
+                <div class="track-datos">
+                    <h3>This Is Halloween</h3>
+                    <span>Apertura · Ciudad de Halloween</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="Jack's Lament" data-subtitulo="Jack Skellington · Ciudad de Halloween" data-archivo="Download (7).mp4">
+                <div class="track-datos">
+                    <h3>Jack's Lament</h3>
+                    <span>Jack Skellington · Ciudad de Halloween</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="What's This?" data-subtitulo="Jack Skellington · Ciudad de la Navidad" data-archivo="Download (8).mp4">
+                <div class="track-datos">
+                    <h3>What's This?</h3>
+                    <span>Jack Skellington · Ciudad de la Navidad</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="Town Meeting Song" data-subtitulo="Jack y los habitantes de Halloween" data-archivo="Download (11).mp4">
+                <div class="track-datos">
+                    <h3>Town Meeting Song</h3>
+                    <span>Jack y los habitantes de Halloween</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="Jack's Obsession" data-subtitulo="Jack Skellington · Preparativos navideños" data-archivo="Download (9).mp4">
+                <div class="track-datos">
+                    <h3>Jack's Obsession</h3>
+                    <span>Jack Skellington · Preparativos navideños</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="Sally's Song" data-subtitulo="Sally · Ciudad de Halloween" data-archivo="Download (10).mp4">
+                <div class="track-datos">
+                    <h3>Sally's Song</h3>
+                    <span>Sally · Ciudad de Halloween</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="Making Christmas" data-subtitulo="Todos en Ciudad de Halloween" data-archivo="Download (13).mp4">
+                <div class="track-datos">
+                    <h3>Making Christmas</h3>
+                    <span>Todos en Ciudad de Halloween</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="This Is Halloween (Reprise)" data-subtitulo="El Rey Jack · Ciudad de Halloween" data-archivo="Download (12).mp4">
+                <div class="track-datos">
+                    <h3>This Is Halloween (Reprise)</h3>
+                    <span>El Rey Jack · Ciudad de Halloween</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+
+            <article class="track-item" data-titulo="Finale / Reprise" data-subtitulo="Jack y Sally · Spiral Hill" data-archivo="Download (6).mp4">
+                <div class="track-datos">
+                    <h3>Finale / Reprise</h3>
+                    <span>Jack y Sally · Spiral Hill</span>
+                </div>
+                <button type="button" class="btn-reproducir-track"><i class="fa fa-play"></i> Reproducir</button>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <div class="redes">
+            <i class="fa fa-facebook-square"></i> Facebook 
+            <i class="fa fa-twitter"></i> Twitter 
+            <i class="fa fa-youtube-play"></i> Youtube 
+            <i class="fa fa-instagram"></i> Instagram 
+            <span>© Disney / Touchstone Pictures.</span>
+        </div>
+    </footer>
+
+    <script src="images.js"></script>
+    <script>
+        (function () {
+            const reproductor = document.getElementById('reproductor-musica-video');
+            const tituloActual = document.getElementById('titulo-pista-actual');
+            const subtituloActual = document.getElementById('subtitulo-pista-actual');
+            const estadoMusica = document.getElementById('estado-musica');
+            const listaTracks = document.getElementById('lista-tracks');
+
+            if (!reproductor || !listaTracks) return;
+
+            function resolverRutaVideo(nombreArchivo, callback) {
+                const candidatos = [
+                    nombreArchivo,
+                    'imagenes y videos/' + nombreArchivo,
+                    'imagenes/' + nombreArchivo
+                ];
+                let idx = 0;
+
+                function probar() {
+                    if (idx >= candidatos.length) {
+                        callback(null);
+                        return;
+                    }
+                    const ruta = encodeURI(candidatos[idx]);
+                    idx++;
+
+                    const tester = document.createElement('video');
+                    tester.preload = 'metadata';
+                    const limpiar = () => {
+                        tester.removeEventListener('loadedmetadata', ok);
+                        tester.removeEventListener('canplay', ok);
+                        tester.removeEventListener('error', fail);
+                    };
+                    const ok = () => {
+                        limpiar();
+                        callback(ruta);
+                    };
+                    const fail = () => {
+                        limpiar();
+                        probar();
+                    };
+                    tester.addEventListener('loadedmetadata', ok, { once: true });
+                    tester.addEventListener('canplay', ok, { once: true });
+                    tester.addEventListener('error', fail, { once: true });
+                    tester.src = ruta;
+                    tester.load();
+                }
+
+                probar();
+            }
+
+            function seleccionarCancion(item, reproducir = true) {
+                const items = listaTracks.querySelectorAll('.track-item');
+                items.forEach((el) => {
+                    el.classList.remove('activo');
+                    const btn = el.querySelector('.btn-reproducir-track');
+                    if (btn) btn.innerHTML = '<i class="fa fa-play"></i> Reproducir';
+                });
+
+                item.classList.add('activo');
+                const btnActivo = item.querySelector('.btn-reproducir-track');
+                if (btnActivo) btnActivo.innerHTML = '<i class="fa fa-volume-up"></i> Reproduciendo';
+
+                const titulo = item.dataset.titulo || 'Canción';
+                const subtitulo = item.dataset.subtitulo || 'El Extraño Mundo de Jack';
+                const archivo = item.dataset.archivo || '';
+
+                if (tituloActual) tituloActual.textContent = titulo;
+                if (subtituloActual) subtituloActual.textContent = subtitulo;
+
+                resolverRutaVideo(archivo, (rutaValida) => {
+                    if (!rutaValida) {
+                        if (estadoMusica) {
+                            estadoMusica.textContent = 'Revisá que "' + archivo + '" esté en tu carpeta del proyecto.';
+                        }
+                        return;
+                    }
+
+                    reproductor.src = rutaValida;
+                    reproductor.muted = false;
+                    reproductor.volume = 1;
+                    reproductor.load();
+
+                    if (estadoMusica) {
+                        estadoMusica.textContent = 'Reproduciendo: ' + titulo;
+                    }
+
+                    if (reproducir) {
+                        reproductor.play().catch(() => {});
+                    }
+                });
+            }
+
+            listaTracks.addEventListener('click', (e) => {
+                const item = e.target.closest('.track-item');
+                if (!item) return;
+                seleccionarCancion(item, true);
+            });
+
+            const primeraCancion = listaTracks.querySelector('.track-item');
+            if (primeraCancion) {
+                seleccionarCancion(primeraCancion, false);
+            }
+        })();
+    </script>
+</body>
+</html>

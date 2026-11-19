@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Contacto - El Extraño Mundo de Jack</title>
+    <style>
+        .contenido-contacto {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px 64px 20px;
+        }
+
+        .titulo-contacto {
+            font-family: 'Creepster', cursive;
+            font-size: 52px;
+            color: #ffffff;
+            letter-spacing: 4px;
+            text-align: center;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.9);
+        }
+
+        .caja-contacto {
+            background-color: #0d0d0d;
+            border: 2px solid #800000;
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 24px;
+        }
+
+        .caja-contacto h2 {
+            font-family: 'Creepster', cursive;
+            font-size: 30px;
+            color: #D97732;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .campo-form {
+            margin-bottom: 18px;
+        }
+
+        .campo-form label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 7px;
+        }
+
+        .campo-form input,
+        .campo-form select,
+        .campo-form textarea {
+            width: 100%;
+            background-color: #151515;
+            color: #ffffff;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 11px 14px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+        }
+
+        .campo-form input:focus,
+        .campo-form select:focus,
+        .campo-form textarea:focus {
+            outline: none;
+            border-color: #D97732;
+        }
+
+        .campo-form textarea {
+            resize: vertical;
+            min-height: 130px;
+        }
+
+        .btn-enviar-contacto {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Creepster', cursive;
+            font-size: 20px;
+            letter-spacing: 2px;
+            color: #ffffff;
+            background-color: #800000;
+            border: 2px solid #d62828;
+            padding: 9px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.25s ease, color 0.25s ease;
+        }
+
+        .btn-enviar-contacto:hover {
+            background-color: #D97732;
+            border-color: #D97732;
+            color: #000000;
+        }
+
+        .respuesta-contacto {
+            margin-top: 18px;
+            padding: 13px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .respuesta-contacto.oculto {
+            display: none;
+        }
+
+        .respuesta-contacto.exito {
+            background-color: rgba(46, 125, 50, 0.2);
+            border: 1px solid #4caf50;
+            color: #ffffff;
+        }
+
+        .respuesta-contacto.error {
+            background-color: rgba(214, 40, 40, 0.2);
+            border: 1px solid #d62828;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<style id="estilo-menu-desplegable-inline">
+    #menu_bar.desplegado ul,
+    #menu_bar.responsive ul {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        right: 40px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 210px !important;
+        background-color: #0d0d0d !important;
+        border: 2px solid #800000 !important;
+        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        gap: 14px !important;
+        z-index: 99999 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.92) !important;
+    }
+
+    #menu_bar.desplegado ul li,
+    #menu_bar.responsive ul li {
+        display: block !important;
+    }
+
+    #menu_bar.desplegado ul li a,
+    #menu_bar.responsive ul li a {
+        display: inline-block !important;
+    }
+
+    #menu_bar.desplegado ul li:has(.menu-rojo),
+    #menu_bar.responsive ul li:has(.menu-rojo) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #menu_bar.desplegado ul,
+        #menu_bar.responsive ul {
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+</style>
+<script>
+    (function () {
+        function alternarMenuDesplegable(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var nav = document.getElementById("menu_bar");
+            if (!nav) return;
+            var estaAbierto = nav.classList.contains("desplegado") || nav.classList.contains("responsive");
+            nav.classList.toggle("desplegado", !estaAbierto);
+            nav.classList.toggle("responsive", !estaAbierto);
+        }
+
+        document.addEventListener("click", function (e) {
+            var gatillo = e.target.closest(".menu-rojo, .icon");
+            if (gatillo) {
+                alternarMenuDesplegable(e);
+                return;
+            }
+            var nav = document.getElementById("menu_bar");
+            if (nav && !e.target.closest("#menu_bar")) {
+                nav.classList.remove("desplegado");
+                nav.classList.remove("responsive");
+            }
+        });
+    })();
+</script>
+<body>
+    <header>
+        <div>
+            <img src="imagenes/logo.png" alt="Logo El Extraño Mundo de Jack">
+        </div>
+
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+
+        <nav id="menu_bar" class="barratop">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="galeria.html">GALERÍA</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="mundos.html">MUNDOS</a></li>
+                <li><a href="musica.html">MÚSICA</a></li>
+                <li><a href="contacto.html" style="color: #D97732;">CONTACTO</a></li>
+                <li><a href="#" class="menu-rojo"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenido-contacto">
+        <h1 class="titulo-contacto">CONTACTO</h1>
+
+        <section class="caja-contacto">
+            <h2>ENVIÁ TU MENSAJE</h2>
+            <form id="form-contacto" novalidate>
+                <div class="campo-form">
+                    <label for="nombre">Nombre</label>
+                    <input type="text" id="nombre" name="nombre" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" required>
+                </div>
+
+                <div class="campo-form">
+                    <label for="asunto">Asunto</label>
+                    <select id="asunto" name="asunto">
+                        <option value="Consulta">Consulta</option>
+                        <option value="Soporte">Soporte</option>
+                        <option value="Sugerencia">Sugerencia</option>
+                    </select>
+                </div>
+
+                <div class="campo-form">
+                    <label for="mensaje">Mensaje</label>
+                    <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
+                </div>
+
+                <button type="submit" class="btn-enviar-contacto">
+                    <i class="fa fa-paper-plane"></i> ENVIAR
+                </button>
+
+                <div id="estado-envio" class="respuesta-contacto oculto" role="status" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <section class="caja-contacto" id="contenido-extra"></section>
+    </main>
+
+    <footer>
+        <div class="redes">
+            <i class="fa fa-facebook-square"></i> Facebook 
+            <i class="fa fa-twitter"></i> Twitter 
+            <i class="fa fa-youtube-play"></i> Youtube 
+            <i class="fa fa-instagram"></i> Instagram 
+            <span>© Disney / Touchstone Pictures.</span>
+        </div>
+    </footer>
+
+    <script src="images.js"></script>
+    <script>
+        (function () {
+            const form = document.getElementById("form-contacto");
+            const estado = document.getElementById("estado-envio");
+            if (!form || !estado) return;
+
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                const nombre = document.getElementById("nombre").value.trim();
+                const correo = document.getElementById("correo").value.trim();
+                const asunto = document.getElementById("asunto").value;
+                const mensaje = document.getElementById("mensaje").value.trim();
+
+                estado.classList.remove("oculto", "error", "exito");
+
+                if (!nombre || !correo || !mensaje) {
+                    estado.textContent = "Completá nombre, correo electrónico y mensaje.";
+                    estado.classList.add("error");
+                    return;
+                }
+
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)) {
+                    estado.textContent = "Ingresá un correo electrónico válido.";
+                    estado.classList.add("error");
+                    return;
+                }
+
+                estado.innerHTML = "<strong>¡Mensaje enviado!</strong> Gracias, " + nombre + " (" + asunto + ").";
+                estado.classList.add("exito");
+                form.reset();
+            });
+        })();
+    </script>
+
+</body>
+</html>

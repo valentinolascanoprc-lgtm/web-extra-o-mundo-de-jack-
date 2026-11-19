@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css">
+    <title>El Extraño Mundo de Jack</title>
+</head>
+<style id="estilo-menu-desplegable-inline">
+    #menu_bar.desplegado ul,
+    #menu_bar.responsive ul {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        right: 40px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 210px !important;
+        background-color: #0d0d0d !important;
+        border: 2px solid #800000 !important;
+        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        gap: 14px !important;
+        z-index: 99999 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.92) !important;
+    }
+
+    #menu_bar.desplegado ul li,
+    #menu_bar.responsive ul li {
+        display: block !important;
+    }
+
+    #menu_bar.desplegado ul li a,
+    #menu_bar.responsive ul li a {
+        display: inline-block !important;
+    }
+
+    #menu_bar.desplegado ul li:has(.menu-rojo),
+    #menu_bar.responsive ul li:has(.menu-rojo) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #menu_bar.desplegado ul,
+        #menu_bar.responsive ul {
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+</style>
+<script>
+    (function () {
+        function alternarMenuDesplegable(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var nav = document.getElementById("menu_bar");
+            if (!nav) return;
+            var estaAbierto = nav.classList.contains("desplegado") || nav.classList.contains("responsive");
+            nav.classList.toggle("desplegado", !estaAbierto);
+            nav.classList.toggle("responsive", !estaAbierto);
+        }
+
+        document.addEventListener("click", function (e) {
+            var gatillo = e.target.closest(".menu-rojo, .icon");
+            if (gatillo) {
+                alternarMenuDesplegable(e);
+                return;
+            }
+            var nav = document.getElementById("menu_bar");
+            if (nav && !e.target.closest("#menu_bar")) {
+                nav.classList.remove("desplegado");
+                nav.classList.remove("responsive");
+            }
+        });
+    })();
+</script>
+<body>
+    <header>
+        <div>
+            <img src="imagenes/logo.png" alt="Logo El Extraño Mundo de Jack">
+        </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()"><i class="fa fa-bars"></i></a>
+        <nav id="menu_bar" class="barratop">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="galeria.html">GALERÍA</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="mundos.html">MUNDOS</a></li>
+                <li><a href="musica.html">MÚSICA</a></li>
+                <li><a href="contacto.html">CONTACTO</a></li>
+                <li><a href="#" class="menu-rojo"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero-seccion">
+        <div class="principal">
+            <img
+                src="imagenes/fondo.png"
+                alt="Fondo El Extraño Mundo de Jack"
+                onerror="if (!this.dataset.f1) { this.dataset.f1 = 1; this.src = encodeURI('imagenes/WhatsApp Image 2026-11-19 at 12.34.57 PM.jpeg'); } else if (!this.dataset.f2) { this.dataset.f2 = 1; this.src = encodeURI('imagenes y videos/WhatsApp Image 2026-11-19 at 12.34.57 PM.jpeg'); }"
+            >
+        </div>
+
+        <article class="secundario">
+            <h4 id="personaje-titulo">PERSONAJES</h4>
+            <div class="carrusel-contenedor">
+                <button type="button" id="btn-prev" class="flecha" aria-label="Anterior">
+                    <i class="fa fa-arrow-left"></i>
+                </button>
+
+                <div class="tarjeta">
+                    <a href="historia.html#jack">
+                        <img src="imagenes/jack.png" alt="Jack Skellington">
+                    </a>
+                </div>
+
+                <div class="tarjeta activo">
+                    <a href="historia.html#oogie">
+                        <img src="imagenes/oogie.png" alt="Oogie Boogie">
+                    </a>
+                </div>
+
+                <div class="tarjeta">
+                    <a href="historia.html#sally">
+                        <img src="imagenes/sally- galeria.png" alt="Sally">
+                    </a>
+                </div>
+
+                <button type="button" id="btn-next" class="flecha" aria-label="Siguiente">
+                    <i class="fa fa-arrow-right"></i>
+                </button>
+            </div>
+        </article>
+    </section>
+
+    <div id="modal-trailer" class="modal-trailer oculto" role="dialog" aria-modal="true" aria-label="Tráiler de El Extraño Mundo de Jack">
+        <button type="button" id="btn-cerrar-trailer" class="btn-cerrar-trailer" aria-label="Cerrar tráiler">&times;</button>
+        <div class="video-marco-limpio">
+            <video id="video-trailer" controls playsinline preload="metadata"></video>
+        </div>
+    </div>
+
+    <footer>
+        <div class="redes">
+            <i class="fa fa-facebook-square"></i> Facebook 
+            <i class="fa fa-twitter"></i> Twitter 
+            <i class="fa fa-youtube-play"></i> Youtube 
+            <i class="fa fa-instagram"></i> Instagram 
+            <span>© Disney / Touchstone Pictures.</span>
+        </div>
+        <div class="trailer-footer">
+            <button type="button" id="btn-abrir-trailer" class="btn-trailer">
+                <i class="fa fa-play-circle"></i> VER TRAILER
+            </button>
+        </div>
+    </footer>
+
+    <script src="images.js"></script>
+    <script>
+        (function () {
+            const btnAbrir = document.getElementById('btn-abrir-trailer');
+            const modal = document.getElementById('modal-trailer');
+            const video = document.getElementById('video-trailer');
+            const btnCerrar = document.getElementById('btn-cerrar-trailer');
+            const FIN_SIN_OUTRO = 179.5;
+
+            if (!btnAbrir || !modal || !video) return;
+
+            const candidatosVideo = [
+                'imagenes y videos/WhatsApp Video 2026-11-19 at 12.54.37 PM.mp4',
+                'imagenes/WhatsApp Video 2026-11-19 at 12.54.37 PM.mp4',
+                'WhatsApp Video 2026-11-19 at 12.54.37 PM.mp4',
+                'imagenes y videos/video_1.mp4',
+                'imagenes/video_1.mp4',
+                'video_1.mp4',
+                'imagenes y videos/trailer.mp4'
+            ];
+
+            function cargarFuenteValida() {
+                return new Promise((resolve) => {
+                    let idx = 0;
+
+                    function probarSiguiente() {
+                        if (idx >= candidatosVideo.length) {
+                            resolve(false);
+                            return;
+                        }
+                        const ruta = encodeURI(candidatosVideo[idx]);
+                        idx++;
+
+                        const onLoaded = () => {
+                            limpiar();
+                            resolve(true);
+                        };
+                        const onError = () => {
+                            limpiar();
+                            probarSiguiente();
+                        };
+                        function limpiar() {
+                            video.removeEventListener('loadedmetadata', onLoaded);
+                            video.removeEventListener('canplay', onLoaded);
+                            video.removeEventListener('error', onError);
+                        }
+
+                        video.addEventListener('loadedmetadata', onLoaded, { once: true });
+                        video.addEventListener('canplay', onLoaded, { once: true });
+                        video.addEventListener('error', onError, { once: true });
+                        video.src = ruta;
+                        video.load();
+                    }
+
+                    probarSiguiente();
+                });
+            }
+
+            video.addEventListener('timeupdate', () => {
+                if (video.currentTime >= FIN_SIN_OUTRO) {
+                    cerrarTrailer();
+                }
+            });
+
+            btnAbrir.addEventListener('click', async () => {
+                modal.classList.remove('oculto');
+                video.muted = false;
+                video.volume = 1;
+
+                if (!video.src) {
+                    await cargarFuenteValida();
+                }
+
+                try {
+                    video.currentTime = 0;
+                } catch (e) {}
+
+                try {
+                    if (modal.requestFullscreen) {
+                        await modal.requestFullscreen();
+                    } else if (modal.webkitRequestFullscreen) {
+                        await modal.webkitRequestFullscreen();
+                    }
+                } catch (e) {}
+
+                video.play().catch(() => {});
+            });
+
+            function cerrarTrailer() {
+                video.pause();
+                if (document.fullscreenElement && document.exitFullscreen) {
+                    document.exitFullscreen().catch(() => {});
+                } else if (document.webkitFullscreenElement && document.webkitExitFullscreen) {
+                    document.webkitExitFullscreen();
+                }
+                modal.classList.add('oculto');
+            }
+
+            if (btnCerrar) {
+                btnCerrar.addEventListener('click', cerrarTrailer);
+            }
+
+            document.addEventListener('fullscreenchange', () => {
+                if (!document.fullscreenElement && !modal.classList.contains('oculto') && video.paused) {
+                    modal.classList.add('oculto');
+                }
+            });
+        })();
+    </script>
+</body>
+</html>

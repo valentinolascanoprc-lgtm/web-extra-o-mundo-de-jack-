@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Historia - El Extraño Mundo de Jack</title>
+</head>
+<style id="estilo-menu-desplegable-inline">
+    #menu_bar.desplegado ul,
+    #menu_bar.responsive ul {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        right: 40px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 210px !important;
+        background-color: #0d0d0d !important;
+        border: 2px solid #800000 !important;
+        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        gap: 14px !important;
+        z-index: 99999 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.92) !important;
+    }
+
+    #menu_bar.desplegado ul li,
+    #menu_bar.responsive ul li {
+        display: block !important;
+    }
+
+    #menu_bar.desplegado ul li a,
+    #menu_bar.responsive ul li a {
+        display: inline-block !important;
+    }
+
+    #menu_bar.desplegado ul li:has(.menu-rojo),
+    #menu_bar.responsive ul li:has(.menu-rojo) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #menu_bar.desplegado ul,
+        #menu_bar.responsive ul {
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+</style>
+<script>
+    (function () {
+        function alternarMenuDesplegable(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var nav = document.getElementById("menu_bar");
+            if (!nav) return;
+            var estaAbierto = nav.classList.contains("desplegado") || nav.classList.contains("responsive");
+            nav.classList.toggle("desplegado", !estaAbierto);
+            nav.classList.toggle("responsive", !estaAbierto);
+        }
+
+        document.addEventListener("click", function (e) {
+            var gatillo = e.target.closest(".menu-rojo, .icon");
+            if (gatillo) {
+                alternarMenuDesplegable(e);
+                return;
+            }
+            var nav = document.getElementById("menu_bar");
+            if (nav && !e.target.closest("#menu_bar")) {
+                nav.classList.remove("desplegado");
+                nav.classList.remove("responsive");
+            }
+        });
+    })();
+</script>
+<body>
+    <header>
+        <div>
+            <img src="imagenes/logo.png" alt="Logo El Extraño Mundo de Jack">
+        </div>
+
+        <input type="checkbox" id="check-menu" style="display:none;">
+        <label for="check-menu" class="icon"><i class="fa fa-bars"></i></label>
+
+        <nav id="menu_bar" class="barratop">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="galeria.html">GALERÍA</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="mundos.html">MUNDOS</a></li>
+                <li><a href="musica.html">MÚSICA</a></li>
+                <li><a href="contacto.html">CONTACTO</a></li>
+                <li><a href="#" class="menu-rojo"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="seccion-historia-full">
+        <h1 class="titulo-pagina-historia">HISTORIA</h1>
+
+        <section class="bloque-historia-full">
+            <div class="columna-texto-historia">
+                <h2>El Rey de la Noche de Brujas</h2>
+                <p>Jack Skellington, el aclamado Rey Calabaza de la Ciudad de Halloween, lidera a los monstruos en la preparación de la noche más terrorífica del año. Sin embargo, detrás de la aclamación popular, Jack siente un profundo vacío y cansancio de la rutina anual de asustar.</p>
+                <p>Buscando una chispa de inspiración, se adentra en el bosque misterioso y descubre un conjunto de árboles con puertas secretas. Una de ellas lo transporta a la brillante y colorida Ciudad de la Navidad.</p>
+            </div>
+            <div class="columna-imagen-historia">
+                <img src="imagenes/jack frente al arbol de navidad.historia.jpg" alt="Jack frente al Árbol de Navidad">
+            </div>
+        </section>
+
+        <section class="bloque-historia-full">
+            <div class="columna-imagen-historia">
+                <img src="imagenes/santa claus jack img nueva.historia.jpg" alt="Jack disfrazado de Santa Claus">
+            </div>
+            <div class="columna-texto-historia">
+                <h2>Una Nueva Misión</h2>
+                <p>Fascinado por las luces, la nieve y los regalos, Jack intenta explicar el concepto de la Navidad a los habitantes de Halloween, pero ellos solo logran comprenderlo desde una perspectiva macabra.</p>
+                <p>Decidido a experimentar la magia por sí mismo, Jack toma una decisión drástica: apoderarse de la Navidad de ese año, asumir el rol de Santa Atroz (<i>Sandy Claws</i>) y fabricar sus propios juguetes con la ayuda del pueblo.</p>
+            </div>
+        </section>
+
+        <section class="bloque-historia-full">
+            <div class="columna-texto-historia">
+                <h2>El Choque de Dos Mundos</h2>
+                <p>Mientras la Ciudad de Halloween trabaja incansablemente en regalos escalofriantes, Sally, la creación del Dr. Finkelstein, presiente que los planes de Jack desencadenarán un desastre épico.</p>
+                <p>Entre juguetes vivientes, trineos esqueléticos y la intervención de los maliciosos Lock, Shock y Barrel, el intento de llevar alegría navideña se transforma en una noche llena de caos y magia incomprendida.</p>
+            </div>
+            <div class="columna-imagen-historia">
+                <img src="imagenes/sally advirtiendo a jack.historia.jpg" alt="Sally advirtiendo a Jack">
+            </div>
+        </section>
+
+        <section class="personajes-historia">
+
+            <h2 class="titulo-personajes">PERSONAJES</h2>
+
+            <article class="personaje-historia" id="jack">
+                <div class="imagen-personaje">
+                    <img src="imagenes/jack.png" alt="Jack Skellington">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Jack Skellington</h3>
+                    <p>Jack Skellington es el protagonista de la historia y el Rey Calabaza de la Ciudad de Halloween. Es el encargado de organizar Halloween, pero con el tiempo empieza a sentirse aburrido de hacer siempre lo mismo.</p>
+                    <p>Después de descubrir la Ciudad de la Navidad, queda fascinado con ese mundo y decide llevar la Navidad a Halloween.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="sally">
+                <div class="imagen-personaje">
+                    <img src="imagenes/sally- galeria.png" alt="Sally">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Sally</h3>
+                    <p>Sally es una muñeca de trapo creada por el Dr. Finkelstein. Es sensible, tranquila e independiente, y suele pensar antes de actuar.</p>
+                    <p>Desde el comienzo se da cuenta de que el plan de Jack puede salir mal e intenta advertirle. A lo largo de la historia demuestra ser valiente y termina siendo muy importante para ayudarlo.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="oogie">
+                <div class="imagen-personaje">
+                    <img src="imagenes/oogie.png" alt="Oogie Boogie">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Oogie Boogie</h3>
+                    <p>Oogie Boogie es uno de los personajes más peligrosos de la Ciudad de Halloween. Vive en una guarida propia y disfruta de los juegos, las apuestas y el miedo.</p>
+                    <p>Durante la historia termina involucrándose en el plan de Jack y se convierte en uno de sus principales enemigos.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="finkelstein">
+                <div class="imagen-personaje">
+                    <img src="imagenes/Dr. Finkelstein.galeria.jpg" alt="Dr. Finkelstein">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Dr. Finkelstein</h3>
+                    <p>El Dr. Finkelstein es un científico de la Ciudad de Halloween conocido por sus experimentos. Es el creador de Sally y tiene una personalidad bastante controladora.</p>
+                    <p>Su laboratorio es uno de los lugares importantes de Halloween y forma parte de la vida de Sally durante toda la historia.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="lock-shock-barrel">
+                <div class="imagen-personaje">
+                    <img src="imagenes/Lock, shock y Barrel. galeria.html.jpg" alt="Lock, Shock y Barrel">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Lock, Shock y Barrel</h3>
+                    <p>Lock, Shock y Barrel son tres habitantes de Halloween que trabajan para Oogie Boogie. Los tres tienen personalidades diferentes y suelen meterse en problemas.</p>
+                    <p>Jack les pide que encuentren a Santa Claus, pero terminan llevándolo hasta Oogie Boogie y complicando todavía más la situación.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="zero">
+                <div class="imagen-personaje">
+                    <img src="imagenes/Zero.galeria.jpg" alt="Zero">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Zero</h3>
+                    <p>Zero es el perro fantasma de Jack y uno de sus compañeros más fieles. Lo acompaña durante sus aventuras y siempre está cerca de él.</p>
+                    <p>Durante el viaje de Jack, Zero lo acompaña en su intento de llevar la Navidad a Halloween.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="santa-claus">
+                <div class="imagen-personaje">
+                    <img src="imagenes/santa claus. galeria.jpg" alt="Santa Claus">
+                </div>
+                <div class="texto-personaje">
+                    <h3>Santa Claus</h3>
+                    <p>Santa Claus es el encargado de llevar los regalos durante la Navidad. Jack queda fascinado con su trabajo cuando descubre la Ciudad de la Navidad.</p>
+                    <p>Después de que Lock, Shock y Barrel lo capturan, Santa Claus queda en manos de Oogie Boogie hasta que Jack intenta solucionar el problema.</p>
+                </div>
+            </article>
+
+            <article class="personaje-historia" id="alcalde">
+                <div class="imagen-personaje">
+                    <img src="imagenes/El Alcalde de Ciudad de Halloween.galeria.jpg" alt="El Alcalde">
+                </div>
+                <div class="texto-personaje">
+                    <h3>El Alcalde</h3>
+                    <p>El Alcalde es el gobernante de la Ciudad de Halloween, un personaje nervioso y cambiante que se encarga de coordinar las reuniones del pueblo y anunciar las novedades.</p>
+                    <p>Aunque intenta mantener el orden frente a las ideas de Jack y los problemas que surgen, suele abrumarse rápido cuando las cosas se salen de control.</p>
+                </div>
+            </article>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="redes">
+            <i class="fa fa-facebook-square"></i> Facebook 
+            <i class="fa fa-twitter"></i> Twitter 
+            <i class="fa fa-youtube-play"></i> Youtube 
+            <i class="fa fa-instagram"></i> Instagram 
+            <span>© Disney / Touchstone Pictures.</span>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,263 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Mundos - El Extraño Mundo de Jack</title>
+</head>
+<style id="estilo-menu-desplegable-inline">
+    #menu_bar.desplegado ul,
+    #menu_bar.responsive ul {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        right: 40px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 210px !important;
+        background-color: #0d0d0d !important;
+        border: 2px solid #800000 !important;
+        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        gap: 14px !important;
+        z-index: 99999 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.92) !important;
+    }
+
+    #menu_bar.desplegado ul li,
+    #menu_bar.responsive ul li {
+        display: block !important;
+    }
+
+    #menu_bar.desplegado ul li a,
+    #menu_bar.responsive ul li a {
+        display: inline-block !important;
+    }
+
+    #menu_bar.desplegado ul li:has(.menu-rojo),
+    #menu_bar.responsive ul li:has(.menu-rojo) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #menu_bar.desplegado ul,
+        #menu_bar.responsive ul {
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+</style>
+<script>
+    (function () {
+        function alternarMenuDesplegable(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var nav = document.getElementById("menu_bar");
+            if (!nav) return;
+            var estaAbierto = nav.classList.contains("desplegado") || nav.classList.contains("responsive");
+            nav.classList.toggle("desplegado", !estaAbierto);
+            nav.classList.toggle("responsive", !estaAbierto);
+        }
+
+        document.addEventListener("click", function (e) {
+            var gatillo = e.target.closest(".menu-rojo, .icon");
+            if (gatillo) {
+                alternarMenuDesplegable(e);
+                return;
+            }
+            var nav = document.getElementById("menu_bar");
+            if (nav && !e.target.closest("#menu_bar")) {
+                nav.classList.remove("desplegado");
+                nav.classList.remove("responsive");
+            }
+        });
+    })();
+</script>
+<body>
+    <header>
+        <div>
+            <img src="imagenes/logo.png" alt="Logo El Extraño Mundo de Jack">
+        </div>
+
+        <input type="checkbox" id="check-menu" style="display:none;">
+        <label for="check-menu" class="icon"><i class="fa fa-bars"></i></label>
+
+        <nav id="menu_bar" class="barratop">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="galeria.html">GALERÍA</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="mundos.html">MUNDOS</a></li>
+                <li><a href="musica.html">MÚSICA</a></li>
+                <li><a href="contacto.html">CONTACTO</a></li>
+                <li><a href="#" class="menu-rojo"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenido-mundos">
+        <h1 class="titulo-mundos">MUNDOS</h1>
+        <p class="subtitulo-mundos">Hacé click en un mundo para explorar su estética, lugares y habitantes</p>
+
+        <div class="grid-mundos-split">
+            <article class="card-mundo" id="card-halloween" onclick="mostrarMundo('halloween')">
+                <div class="imagen-container">
+                    <img src="imagenes/halloween town.mundos.jpg" alt="Ciudad de Halloween">
+                </div>
+                <div class="overlay-info">
+                    <h2>Ciudad de Halloween</h2>
+                    <span class="ver-mas-mundo">Explorar mundo →</span>
+                </div>
+            </article>
+
+            <article class="card-mundo" id="card-navidad" onclick="mostrarMundo('navidad')">
+                <div class="imagen-container">
+                    <img src="imagenes/Christmas town.mundos.jpg" alt="Ciudad de la Navidad">
+                </div>
+                <div class="overlay-info">
+                    <h2>Ciudad de la Navidad</h2>
+                    <span class="ver-mas-mundo">Explorar mundo →</span>
+                </div>
+            </article>
+        </div>
+
+        <!-- PANEL DETALLE QUE SE ABRE AL HACER CLICK -->
+        <section id="detalle-mundo" class="detalle-mundo oculto">
+            <div class="detalle-mundo-header">
+                <h2 id="mundo-titulo"></h2>
+                <button type="button" class="btn-cerrar-mundo" onclick="cerrarMundo()">Cerrar ✕</button>
+            </div>
+
+            <p id="mundo-intro" class="mundo-intro"></p>
+
+            <div class="grid-info-mundo">
+                <div class="caja-info-mundo">
+                    <h3>Atmósfera y Estética</h3>
+                    <p id="mundo-estetica"></p>
+                </div>
+
+                <div class="caja-info-mundo">
+                    <h3>Lugares Emblemáticos</h3>
+                    <ul id="mundo-lugares"></ul>
+                </div>
+
+                <div class="caja-info-mundo">
+                    <h3>Habitantes Principales</h3>
+                    <ul id="mundo-habitantes"></ul>
+                </div>
+
+                <div class="caja-info-mundo">
+                    <h3>Rol en la Historia</h3>
+                    <p id="mundo-rol"></p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="redes">
+            <i class="fa fa-facebook-square"></i> Facebook 
+            <i class="fa fa-twitter"></i> Twitter 
+            <i class="fa fa-youtube-play"></i> Youtube 
+            <i class="fa fa-instagram"></i> Instagram 
+            <span>© Disney / Touchstone Pictures.</span>
+        </div>
+    </footer>
+
+    <script>
+        const datosMundos = {
+            halloween: {
+                titulo: "CIUDAD DE HALLOWEEN",
+                colorAcento: "#D97732",
+                intro: "Un pueblo gótico y sombrío dedicado por completo a preparar la noche de brujas durante todo el año. Sus habitantes viven para asustar, crear trucos macabros y celebrar lo oscuro con orgullo.",
+                estetica: "Predominan los tonos negros, grises, naranjas calabaza y violetas profundos. Las casas tienen techos torcidos, ventanas desiguales, cementerios con lápidas inclinadas y una luna llena gigante que ilumina la noche eterna.",
+                lugares: [
+                    "Spiral Hill: la colina curva frente al cementerio donde Jack reflexiona bajo la luna.",
+                    "Plaza del Ayuntamiento: el punto de encuentro donde el Alcalde anuncia cada evento.",
+                    "Laboratorio del Dr. Finkelstein: una torre aislada donde creó a Sally.",
+                    "Guarida de Oogie Boogie: un subterráneo lleno de trampas, dados y luces neón."
+                ],
+                habitantes: [
+                    "Jack Skellington (el Rey Calabaza y líder de la celebración).",
+                    "Sally (muñeca de trapo sensible e intuitiva).",
+                    "El Alcalde, Zero, Dr. Finkelstein, Oogie Boogie y Lock, Shock y Barrel."
+                ],
+                rol: "Es el punto de partida de la historia: aunque el pueblo alcanza la perfección asustando, Jack siente un vacío creativo que lo impulsa a buscar algo nuevo fuera de su mundo."
+            },
+            navidad: {
+                titulo: "CIUDAD DE LA NAVIDAD",
+                colorAcento: "#d62828",
+                intro: "Un mundo luminoso, nevado y lleno de calidez donde cada rincón celebra el espíritu navideño, los regalos y la alegría compartida.",
+                estetica: "Contrasta por completo con Halloween: abundan los blancos de la nieve, los rojos intensos, verdes pino y luces doradas. Todo tiene formas redondeadas, chimeneas humeantes, bastones de caramelo y música festiva.",
+                lugares: [
+                    "Taller de Santa Claus: el centro donde se diseñan y envuelven los regalos.",
+                    "Fábrica de Juguetes: líneas de producción llenas de trenes, muñecos y sorpresas.",
+                    "Calles Nevadas y Árbol Central: decorados con guirnaldas y estrellas brillantes.",
+                    "El Bosque de los Árboles Mágicos: la puerta con forma de árbol navideño que conecta ambos mundos."
+                ],
+                habitantes: [
+                    "Santa Claus (encargado de repartir los regalos en Nochebuena).",
+                    "Los Elfos trabajadores (constructores y organizadores de los juguetes).",
+                    "Los Renos mágicos que tiran del trineo por el cielo nocturno."
+                ],
+                rol: "Representa la novedad y la chispa que despierta la obsesión de Jack. Al intentar replicar este mundo sin comprender su verdadero significado, se desata el conflicto central de la película."
+            }
+        };
+
+        function mostrarMundo(clave) {
+            const info = datosMundos[clave];
+            const panel = document.getElementById("detalle-mundo");
+            const cardHalloween = document.getElementById("card-halloween");
+            const cardNavidad = document.getElementById("card-navidad");
+
+            document.getElementById("mundo-titulo").innerText = info.titulo;
+            document.getElementById("mundo-titulo").style.color = info.colorAcento;
+            document.getElementById("mundo-intro").innerText = info.intro;
+            document.getElementById("mundo-estetica").innerText = info.estetica;
+            document.getElementById("mundo-rol").innerText = info.rol;
+
+            const listaLugares = document.getElementById("mundo-lugares");
+            listaLugares.innerHTML = "";
+            info.lugares.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = item;
+                listaLugares.appendChild(li);
+            });
+
+            const listaHabitantes = document.getElementById("mundo-habitantes");
+            listaHabitantes.innerHTML = "";
+            info.habitantes.forEach(item => {
+                const li = document.createElement("li");
+                li.innerText = item;
+                listaHabitantes.appendChild(li);
+            });
+
+            panel.style.borderColor = info.colorAcento;
+            panel.classList.remove("oculto");
+
+            cardHalloween.classList.toggle("seleccionado", clave === "halloween");
+            cardNavidad.classList.toggle("seleccionado", clave === "navidad");
+
+            panel.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+
+        function cerrarMundo() {
+            document.getElementById("detalle-mundo").classList.add("oculto");
+            document.getElementById("card-halloween").classList.remove("seleccionado");
+            document.getElementById("card-navidad").classList.remove("seleccionado");
+        }
+    </script>
+</body>
+</html>

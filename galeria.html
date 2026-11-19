@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Creepster&family=Rubik:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="estilo.css">
+    <title>Galería - El Extraño Mundo de Jack</title>
+    <style>
+        .item-galeria {
+            cursor: pointer;
+        }
+
+        .vista-fotos-personaje {
+            width: 100%;
+            max-width: 1380px;
+            margin: 0 auto;
+            padding: 10px 0 40px 0;
+        }
+
+        .barra-superior-fotos {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 28px;
+            padding-bottom: 14px;
+            border-bottom: 2px solid #800000;
+        }
+
+        .barra-superior-fotos h2 {
+            font-family: 'Creepster', cursive;
+            font-size: 46px;
+            color: #D97732;
+            letter-spacing: 3px;
+            margin: 0;
+        }
+
+        .btn-volver-personajes {
+            font-family: 'Rubik', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #111111;
+            border: 2px solid #800000;
+            padding: 10px 22px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-volver-personajes:hover {
+            background-color: #D97732;
+            border-color: #D97732;
+            color: #000000;
+        }
+
+        .grilla-fotos-ordenadas {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            width: 100%;
+        }
+
+        .tarjeta-foto-sola {
+            width: 100%;
+            height: 290px;
+            background-color: #111111;
+            border: 2px solid #800000;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tarjeta-foto-sola:hover {
+            transform: translateY(-6px);
+            border-color: #D97732;
+            box-shadow: 0px 8px 22px rgba(217, 119, 50, 0.25);
+        }
+
+        .tarjeta-foto-sola img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+
+        .contenedor-detras-escena {
+            width: 100%;
+            max-width: 1380px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        .grilla-videos-detras {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
+            margin-bottom: 28px;
+        }
+
+        .tarjeta-video-detras {
+            background-color: #111111;
+            border: 2px solid #800000;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .tarjeta-video-detras:hover {
+            transform: translateY(-6px);
+            border-color: #D97732;
+            box-shadow: 0px 8px 22px rgba(217, 119, 50, 0.25);
+        }
+
+        .tarjeta-video-detras video {
+            width: 100%;
+            height: 250px;
+            background-color: #000000;
+            display: block;
+        }
+
+        .tarjeta-video-detras video:fullscreen,
+        .tarjeta-video-detras video:-webkit-full-screen {
+            width: 100vw;
+            height: 100vh;
+            object-fit: contain;
+            background-color: #000000;
+        }
+
+        .pie-video-detras {
+            padding: 14px 16px;
+        }
+
+        .pie-video-detras h3 {
+            margin: 0 0 4px 0;
+            color: #ffffff;
+            font-size: 18px;
+        }
+
+        .pie-video-detras span {
+            color: #D97732;
+            font-size: 13px;
+        }
+
+        @media (max-width: 1024px) {
+            .grilla-fotos-ordenadas {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 650px) {
+            .grilla-fotos-ordenadas,
+            .grilla-videos-detras {
+                grid-template-columns: 1fr;
+            }
+
+            .tarjeta-foto-sola {
+                height: 240px;
+            }
+
+            .barra-superior-fotos h2 {
+                font-size: 34px;
+            }
+        }
+    </style>
+</head>
+<style id="estilo-menu-desplegable-inline">
+    #menu_bar.desplegado ul,
+    #menu_bar.responsive ul {
+        display: flex !important;
+        flex-direction: column !important;
+        position: absolute !important;
+        top: 100% !important;
+        right: 40px !important;
+        left: auto !important;
+        width: auto !important;
+        min-width: 210px !important;
+        background-color: #0d0d0d !important;
+        border: 2px solid #800000 !important;
+        border-radius: 8px !important;
+        padding: 14px 20px !important;
+        gap: 14px !important;
+        z-index: 99999 !important;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.92) !important;
+    }
+
+    #menu_bar.desplegado ul li,
+    #menu_bar.responsive ul li {
+        display: block !important;
+    }
+
+    #menu_bar.desplegado ul li a,
+    #menu_bar.responsive ul li a {
+        display: inline-block !important;
+    }
+
+    #menu_bar.desplegado ul li:has(.menu-rojo),
+    #menu_bar.responsive ul li:has(.menu-rojo) {
+        display: none !important;
+    }
+
+    @media (max-width: 768px) {
+        #menu_bar.desplegado ul,
+        #menu_bar.responsive ul {
+            left: 0 !important;
+            right: 0 !important;
+            width: 100% !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-right: none !important;
+        }
+    }
+</style>
+<script>
+    (function () {
+        function alternarMenuDesplegable(e) {
+            if (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+            var nav = document.getElementById("menu_bar");
+            if (!nav) return;
+            var estaAbierto = nav.classList.contains("desplegado") || nav.classList.contains("responsive");
+            nav.classList.toggle("desplegado", !estaAbierto);
+            nav.classList.toggle("responsive", !estaAbierto);
+        }
+
+        document.addEventListener("click", function (e) {
+            var gatillo = e.target.closest(".menu-rojo, .icon");
+            if (gatillo) {
+                alternarMenuDesplegable(e);
+                return;
+            }
+            var nav = document.getElementById("menu_bar");
+            if (nav && !e.target.closest("#menu_bar")) {
+                nav.classList.remove("desplegado");
+                nav.classList.remove("responsive");
+            }
+        });
+    })();
+</script>
+<body>
+    <header>
+        <div>
+            <img src="imagenes/logo.png" alt="Logo El Extraño Mundo de Jack">
+        </div>
+
+        <input type="checkbox" id="check-menu" style="display:none;">
+        <label for="check-menu" class="icon"><i class="fa fa-bars"></i></label>
+
+        <nav id="menu_bar" class="barratop">
+            <ul>
+                <li><a href="index.html">INICIO</a></li>
+                <li><a href="galeria.html">GALERÍA</a></li>
+                <li><a href="historia.html">HISTORIA</a></li>
+                <li><a href="mundos.html">MUNDOS</a></li>
+                <li><a href="musica.html">MÚSICA</a></li>
+                <li><a href="contacto.html">CONTACTO</a></li>
+                <li><a href="#" class="menu-rojo"><i class="fa fa-bars"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="contenido-galeria">
+        <h1 class="titulo-galeria">GALERÍA VISUAL</h1>
+        <p class="bajada-galeria">Explora el universo y los personajes de la película.</p>
+
+        <div class="categorias-galeria" id="barra-categorias">
+            <button type="button" class="cat-btn activo" id="btn-personajes" onclick="mostrarListaPersonajes()">Personajes</button>
+            <button type="button" class="cat-btn" id="btn-detras" onclick="mostrarDetrasEscena()">Detrás de Escena</button>
+        </div>
+
+        <!-- LISTA DE LOS 8 PERSONAJES -->
+        <section class="grid-galeria" id="grid-personajes">
+            <article class="item-galeria" onclick="abrirPersonaje('jack')">
+                <img src="imagenes/jack.png" alt="Jack Skellington">
+                <div class="info-foto">
+                    <h3>Jack Skellington</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('sally')">
+                <img src="imagenes/sally- galeria.png" alt="Sally">
+                <div class="info-foto">
+                    <h3>Sally</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('oogie')">
+                <img src="imagenes/oogie.png" alt="Oogie Boogie">
+                <div class="info-foto">
+                    <h3>Oogie Boogie</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('lock-shock-barrel')">
+                <img src="imagenes/Lock, shock y Barrel. galeria.html.jpg" alt="Lock, Shock y Barrel">
+                <div class="info-foto">
+                    <h3>Lock, Shock y Barrel</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('zero')">
+                <img src="imagenes/Zero.galeria.jpg" alt="Zero">
+                <div class="info-foto">
+                    <h3>Zero</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('santa-claus')">
+                <img src="imagenes/santa claus. galeria.jpg" alt="Santa Claus">
+                <div class="info-foto">
+                    <h3>Santa Claus</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('alcalde')">
+                <img src="imagenes/El Alcalde de Ciudad de Halloween.galeria.jpg" alt="El Alcalde">
+                <div class="info-foto">
+                    <h3>El Alcalde</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+
+            <article class="item-galeria" onclick="abrirPersonaje('finkelstein')">
+                <img src="imagenes/Dr. Finkelstein.galeria.jpg" alt="Dr. Finkelstein">
+                <div class="info-foto">
+                    <h3>Dr. Finkelstein</h3>
+                    <span>Personajes</span>
+                </div>
+            </article>
+        </section>
+
+        <!-- DETRÁS DE ESCENA (VIDEOS + FOTOS JUNTAS) -->
+        <section id="seccion-detras" class="contenedor-detras-escena" style="display: none;">
+            <div class="grilla-videos-detras">
+                <article class="tarjeta-video-detras" onclick="abrirVideoPantallaCompleta('vid-whatsapp')">
+                    <video id="vid-whatsapp" controls preload="metadata" playsinline></video>
+                    <div class="pie-video-detras">
+                        <h3>Stop-Motion Artesanal</h3>
+                        <span id="estado-whatsapp">Click para pantalla completa con sonido</span>
+                    </div>
+                </article>
+
+                <article class="tarjeta-video-detras" onclick="abrirVideoPantallaCompleta('vid-download')">
+                    <video id="vid-download" controls preload="metadata" playsinline></video>
+                    <div class="pie-video-detras">
+                        <h3>Detrás de Escena</h3>
+                        <span id="estado-download">Click para pantalla completa con sonido</span>
+                    </div>
+                </article>
+            </div>
+
+            <div class="grilla-fotos-ordenadas" id="grilla-fotos-detras"></div>
+        </section>
+
+        <!-- GALERÍA ORDENADA DE 3 COLUMNAS DEL PERSONAJE ELEGIDO -->
+        <section id="vista-personaje" class="vista-fotos-personaje" style="display: none;">
+            <div class="barra-superior-fotos">
+                <h2 id="titulo-personaje-elegido"></h2>
+                <button type="button" class="btn-volver-personajes" onclick="mostrarListaPersonajes()">← Volver a Personajes</button>
+            </div>
+            <div id="contenedor-fotos-personaje" class="grilla-fotos-ordenadas"></div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="redes">
+            <i class="fa fa-facebook-square"></i> Facebook 
+            <i class="fa fa-twitter"></i> Twitter 
+            <i class="fa fa-youtube-play"></i> Youtube 
+            <i class="fa fa-instagram"></i> Instagram 
+            <span>© Disney / Touchstone Pictures.</span>
+        </div>
+    </footer>
+
+    <script>
+        function configurarCandidatosVideo(videoId, estadoId, rutasCandidatas) {
+            const video = document.getElementById(videoId);
+            const estado = document.getElementById(estadoId);
+            let indice = 0;
+
+            function probarSiguiente() {
+                if (indice >= rutasCandidatas.length) {
+                    estado.textContent = "Revisá el nombre del archivo dentro de 'imagenes y videos'.";
+                    return;
+                }
+                const rutaActual = rutasCandidatas[indice++];
+                video.src = encodeURI(rutaActual);
+                video.load();
+            }
+
+            video.addEventListener("error", probarSiguiente);
+            probarSiguiente();
+        }
+
+        configurarCandidatosVideo("vid-whatsapp", "estado-whatsapp", [
+            "imagenes y videos/WhatsApp Video 2026-11-19 at 11.23.01 AM.mp4",
+            "imagenes/WhatsApp Video 2026-11-19 at 11.23.01 AM.mp4",
+            "WhatsApp Video 2026-11-19 at 11.23.01 AM.mp4"
+        ]);
+
+        configurarCandidatosVideo("vid-download", "estado-download", [
+            "imagenes y videos/Download.mp4",
+            "imagenes/Download.mp4",
+            "imagenes/download.mp4",
+            "Download.mp4"
+        ]);
+
+        function abrirVideoPantallaCompleta(videoId) {
+            const video = document.getElementById(videoId);
+            if (!video) return;
+
+            document.querySelectorAll("#seccion-detras video").forEach((v) => {
+                if (v !== video) {
+                    v.pause();
+                }
+            });
+
+            video.controls = true;
+            video.muted = false;
+            video.volume = 1;
+
+            if (video.requestFullscreen) {
+                video.requestFullscreen().catch(() => {});
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            }
+
+            video.play().catch(() => {});
+        }
+
+        const fotosDetrasEscena = [
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.23.16 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.23.31 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.23.43 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.24.08 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.24.22 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.24.45 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.22.25 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 11.22.34 AM.jpeg",
+            "imagenes y videos/WhatsApp Image 2026-11-19 at 12.09.25 PM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.23.16 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.23.31 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.23.43 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.24.08 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.24.22 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.24.45 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.22.25 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 11.22.34 AM.jpeg",
+            "imagenes/WhatsApp Image 2026-11-19 at 12.09.25 PM.jpeg"
+        ];
+
+        function renderizarFotosDetrasEscena() {
+            const contenedor = document.getElementById("grilla-fotos-detras");
+            contenedor.innerHTML = "";
+            const unicas = [...new Set(fotosDetrasEscena)];
+
+            unicas.forEach((ruta, i) => {
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "tarjeta-foto-sola";
+
+                const img = document.createElement("img");
+                img.src = encodeURI(ruta);
+                img.alt = "Detrás de escena " + (i + 1);
+                img.onerror = function () {
+                    tarjeta.remove();
+                };
+
+                tarjeta.appendChild(img);
+                contenedor.appendChild(tarjeta);
+            });
+        }
+
+        renderizarFotosDetrasEscena();
+
+        const galeriasPersonajes = {
+            jack: {
+                nombre: "JACK SKELLINGTON",
+                fotos: [
+                    "imagenes/jack.png",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.05.58 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.06.09 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.06.17 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.06.30 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.06.48 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.07.02 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.08.01 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.08.35 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.08.43 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.09.34 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.05.16 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.05.40 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.20.30 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.21.21 AM.jpeg"
+                ]
+            },
+            sally: {
+                nombre: "SALLY",
+                fotos: [
+                    "imagenes/sally- galeria.png",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.06.09 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.06.17 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.10.30 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.10.40 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.11.16 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.11.22 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.11.59 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.23.52 AM.jpeg"
+                ]
+            },
+            oogie: {
+                nombre: "OOGIE BOOGIE",
+                fotos: [
+                    "imagenes/oogie.png",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.13.10 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.13.45 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.14.17 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.14.33 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.15.12 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.21.21 AM.jpeg"
+                ]
+            },
+            "lock-shock-barrel": {
+                nombre: "LOCK, SHOCK Y BARREL",
+                fotos: [
+                    "imagenes/Lock, shock y Barrel. galeria.html.jpg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.16.11 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.16.56 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.17.19 AM.jpeg"
+                ]
+            },
+            zero: {
+                nombre: "ZERO",
+                fotos: [
+                    "imagenes/Zero.galeria.jpg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.05.58 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.09.34 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.05.40 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.18.51 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.18.57 AM.jpeg"
+                ]
+            },
+            "santa-claus": {
+                nombre: "SANTA CLAUS",
+                fotos: [
+                    "imagenes/santa claus. galeria.jpg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.13.45 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.14.33 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.15.12 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.16.11 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.17.19 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.18.25 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.20.30 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.20.35 AM.jpeg"
+                ]
+            },
+            alcalde: {
+                nombre: "EL ALCALDE",
+                fotos: [
+                    "imagenes/El Alcalde de Ciudad de Halloween.galeria.jpg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.21.10 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.21.21 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.21.36 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.22.01 AM.jpeg"
+                ]
+            },
+            finkelstein: {
+                nombre: "DR. FINKELSTEIN",
+                fotos: [
+                    "imagenes/Dr. Finkelstein.galeria.jpg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.11.59 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.23.18 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.23.34 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.23.39 AM.jpeg",
+                    "imagenes/WhatsApp Image 2026-11-19 at 10.23.52 AM.jpeg"
+                ]
+            }
+        };
+
+        function abrirPersonaje(clave) {
+            const data = galeriasPersonajes[clave];
+            if (!data) return;
+
+            document.getElementById("grid-personajes").style.display = "none";
+            document.getElementById("seccion-detras").style.display = "none";
+            document.getElementById("barra-categorias").style.display = "none";
+
+            const vista = document.getElementById("vista-personaje");
+            const titulo = document.getElementById("titulo-personaje-elegido");
+            const contenedor = document.getElementById("contenedor-fotos-personaje");
+
+            titulo.textContent = data.nombre;
+            contenedor.innerHTML = "";
+
+            const fotosUnicas = [...new Set(data.fotos)];
+
+            fotosUnicas.forEach((ruta, index) => {
+                const tarjeta = document.createElement("div");
+                tarjeta.className = "tarjeta-foto-sola";
+
+                const img = document.createElement("img");
+                img.src = encodeURI(ruta);
+                img.alt = data.nombre + " " + (index + 1);
+                img.onerror = function () {
+                    tarjeta.remove();
+                };
+
+                tarjeta.appendChild(img);
+                contenedor.appendChild(tarjeta);
+            });
+
+            vista.style.display = "block";
+            window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+
+        function mostrarListaPersonajes() {
+            document.querySelectorAll("#seccion-detras video").forEach((v) => v.pause());
+            document.getElementById("vista-personaje").style.display = "none";
+            document.getElementById("seccion-detras").style.display = "none";
+            document.getElementById("barra-categorias").style.display = "flex";
+            document.getElementById("grid-personajes").style.display = "grid";
+
+            document.getElementById("btn-personajes").classList.add("activo");
+            document.getElementById("btn-detras").classList.remove("activo");
+        }
+
+        function mostrarDetrasEscena() {
+            document.getElementById("vista-personaje").style.display = "none";
+            document.getElementById("grid-personajes").style.display = "none";
+            document.getElementById("barra-categorias").style.display = "flex";
+            document.getElementById("seccion-detras").style.display = "block";
+
+            document.getElementById("btn-detras").classList.add("activo");
+            document.getElementById("btn-personajes").classList.remove("activo");
+        }
+    </script>
+</body>
+</html>

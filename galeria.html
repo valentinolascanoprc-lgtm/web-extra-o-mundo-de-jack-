@@ -412,12 +412,34 @@
             "WhatsApp Video 2026-11-19 at 11.23.01 AM.mp4"
         ]);
 
-        configurarCandidatosVideo("vid-download", "estado-download", [
-            "imagenes y videos/Download.mp4",
-            "imagenes/Download.mp4",
-            "imagenes/download.mp4",
-            "Download.mp4"
-        ]);
+        // El video largo se divide en partes pequeñas para GitHub Pages.
+        // Cada parte continúa automáticamente con la siguiente.
+        const partesDetrasEscena = Array.from({ length: 12 }, (_, i) =>
+            "imagenes y videos/Download_parte_" + String(i).padStart(2, "0") + ".mp4"
+        );
+        const reproductorDetras = document.getElementById("vid-download");
+        const estadoDetras = document.getElementById("estado-download");
+        let parteActualDetras = 0;
+
+        function cargarParteDetras(indice, autoReproducir = false) {
+            if (!reproductorDetras || indice >= partesDetrasEscena.length) return;
+            parteActualDetras = indice;
+            reproductorDetras.src = encodeURI(partesDetrasEscena[indice]);
+            reproductorDetras.load();
+            if (estadoDetras) estadoDetras.textContent = "Video detrás de escena · Parte " + (indice + 1) + " de " + partesDetrasEscena.length;
+            if (autoReproducir) reproductorDetras.play().catch(() => {});
+        }
+        if (reproductorDetras) {
+            reproductorDetras.addEventListener("ended", () => {
+                if (parteActualDetras + 1 < partesDetrasEscena.length) {
+                    cargarParteDetras(parteActualDetras + 1, true);
+                }
+            });
+            reproductorDetras.addEventListener("error", () => {
+                if (estadoDetras) estadoDetras.textContent = "Falta la parte " + (parteActualDetras + 1) + " del video.";
+            });
+            cargarParteDetras(0);
+        }
 
         function abrirVideoPantallaCompleta(videoId) {
             const video = document.getElementById(videoId);
